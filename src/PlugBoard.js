@@ -38,15 +38,15 @@ export class PlugBoard {
   }
 
   /**
-   * @param {string} letter
+   * @param {string} char
    * @returns {string}
    */
-  process(letter) {
-    letter = letter.toUpperCase();
-    if (!this.isValidLetter(letter)) {
+  process(char) {
+    char = char.toUpperCase();
+    if (!this.isValidLetter(char)) {
       throw new Error('Input must be a single letter A-Z.');
     }
 
-    return this.plugConnections[letter] || letter;
+    return this.plugConnections[char] || char;
   }
 }

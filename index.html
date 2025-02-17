@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <canvas id="enigmaCanvas" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('enigmaCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Colors
+    const woodColor = '#8B4513';
+    const metalColor = '#A9A9A9';
+    const darkMetalColor = '#696969';
+    const brassColor = '#B8860B';
+
+    // Keyboard layout in three rows
+    const keyboardLayout = [
+      'QWERTZUIO',
+      'ASDFGHJK',
+      'PYXCVBNML'
+    ];
+
+    function drawMachine() {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Wooden base
+      ctx.fillStyle = woodColor;
+      ctx.fillRect(100, 50, 400, 300);
+
+      // Main metal casing
+      ctx.fillStyle = metalColor;
+      ctx.fillRect(120, 70, 360, 260);
+
+      // Rotor housing
+      ctx.fillStyle = darkMetalColor;
+      ctx.fillRect(150, 90, 300, 80);
+
+      // Rotors
+      const rotorPositions = [200, 300, 400];
+      rotorPositions.forEach(x => {
+        ctx.fillStyle = brassColor;
+        ctx.beginPath();
+        ctx.arc(x, 130, 30, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Rotor markings
+        ctx.fillStyle = 'black';
+        for(let i = 0; i < 8; i++) {
+          const angle = (i / 8) * Math.PI * 2;
+          const markX = x + Math.cos(angle) * 20;
+          const markY = 130 + Math.sin(angle) * 20;
+          ctx.fillRect(markX - 2, markY - 2, 4, 4);
+        }
+      });
+
+      // Lampboard
+      ctx.fillStyle = darkMetalColor;
+      ctx.fillRect(150, 180, 300, 15);
+      
+      // Draw all lamps
+      keyboardLayout.forEach((row, rowIndex) => {
+        const startX = 165 + (rowIndex === 1 ? 15 : 0);
+        for(let i = 0; i < row.length; i++) {
+          ctx.fillStyle = '#FFE4B5';
+          ctx.beginPath();
+          ctx.arc(startX + i * 30, 187, 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      // Keyboard area
+      ctx.fillStyle = darkMetalColor;
+      ctx.fillRect(150, 200, 300, 100);
+
+      // Draw all keys
+      keyboardLayout.forEach((row, rowIndex) => {
+        const startX = 165 + (rowIndex === 1 ? 15 : 0);
+        const startY = 230 + rowIndex * 30;
+        
+        for(let i = 0; i < row.length; i++) {
+          // Key circle
+          ctx.fillStyle = metalColor;
+          ctx.beginPath();
+          ctx.arc(startX + i * 30, startY, 10, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Letter
+          ctx.fillStyle = 'black';
+          ctx.font = '12px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(row[i], startX + i * 30, startY + 4);
+        }
+      });
+    }
+
+    // Animation loop
+    let angle = 0;
+    function animate() {
+      angle += 0.02;
+      drawMachine();
+      
+      // Add subtle reflection effect
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.beginPath();
+      ctx.moveTo(120, 70);
+      ctx.lineTo(120 + Math.sin(angle) * 360, 70);
+      ctx.lineTo(120, 330);
+      ctx.fill();
+      
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>

@@ -32,7 +32,11 @@ let chars = input.split('');
 let output = '';
 
 chars.forEach(char => {
+  // the enigma machine keyboard has no space bar!
+  // but we can have spaces in the input text
   if (/[a-zA-Z]/.test(char)) {
+
+    // check notch positions
     if (right.isAtNotch()) {
       if (middle.isAtNotch()) {
         left.step();
@@ -41,7 +45,10 @@ chars.forEach(char => {
     }
     right.step();
 
-    let tmp = plug.process(char);
+    let tmp = '';
+
+    // signal path from the keyboard
+    tmp = plug.process(char);
     tmp = right.process(tmp);
     tmp = middle.process(tmp);
     tmp = left.process(tmp);
@@ -50,6 +57,8 @@ chars.forEach(char => {
     tmp = middle.process(tmp, true);
     tmp = right.process(tmp, true);
     tmp = plug.process(tmp);
+
+    // instead of lighting the bulb, we collect the output here...
     output += tmp;
   }
 });

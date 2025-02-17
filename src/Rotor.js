@@ -44,24 +44,17 @@ export class Rotor {
 
   /**
   * @param {string} char
-  * @param {boolean} reverse
+  * @param {boolean} isReverse
   * @returns {string}
   */
-  process(char, reverse = false) {
-    let p = utils.convert(char); // input position
-    let pos = this.position; // rotor position
-    let ring = this.ringSetting; // ring setting
-    let w = this.wiring; // wiring
+  process(char, isReverse = false) {
+    let p = utils.convert(char);
+    let pos = this.position;
+    let ring = this.ringSetting;
+    let w = this.wiring;
 
-    if (!reverse) {
-      let entrypoint = utils.convert(w[(p + pos - ring + 26) % 26]);
-      let output = (entrypoint - pos + ring + 26) % 26
-      return utils.convert(output);
-    } else {
-      let shifted = (p + pos - ring + 26) % 26;
-      let reverse = w.indexOf(utils.convert(shifted));
-      let output = (reverse - pos + ring + 26) % 26;
-      return utils.convert(output);
-    }
+    let entrypoint = !isReverse ? utils.convert(w[(p + pos - ring + 26) % 26]) :
+      w.indexOf(utils.convert((p + pos - ring + 26) % 26));
+    return utils.convert((entrypoint - pos + ring + 26) % 26);
   }
 }

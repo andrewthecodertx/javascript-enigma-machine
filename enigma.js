@@ -1,6 +1,6 @@
-import { PlugBoard } from './src/PlugBoard.js';
-import { Rotor } from './src/Rotor.js';
-import { Reflector } from './src/Reflector.js';
+import PlugBoard from './src/PlugBoard.js';
+import Rotor from './src/Rotor.js';
+import Reflector from './src/Reflector.js';
 
 // the five available rotors for the Enigma M3
 let I = ['EKMFLGDQVZNTOWYHXUSPAIBRCJ', 'Q']
@@ -9,21 +9,10 @@ let III = ['BDFHJLCPRTXVZNYEIWGAKMUSQO', 'V']
 let IV = ['ESOVPZJAYQUIRHXLNFTGKDCMWB', 'J']
 let V = ['VZBRGITYUPSDNHLXAWMJQOFECK', 'Z']
 
-let plug = new PlugBoard();
-plug.setPlugs(['AZ', 'BY', 'CX', 'TD', 'SW']);
-
-let left = new Rotor(IV)
-left.setPosition('J');
-left.setRingSetting('A');
-
-let middle = new Rotor(III)
-middle.setPosition('V');
-middle.setRingSetting('A');
-
-let right = new Rotor(V)
-right.setPosition('Z');
-right.setRingSetting('A');
-
+let plug = new PlugBoard(['AZ', 'BY', 'CX', 'TD', 'SW']);
+let left = new Rotor(IV, 'A', 'J');
+let middle = new Rotor(III, 'A', 'V');
+let right = new Rotor(V, 'A', 'Z');
 let reflector = new Reflector();
 
 let input = 'this is a test';

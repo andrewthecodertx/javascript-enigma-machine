@@ -1,4 +1,4 @@
-export class utils {
+export default class utils {
   /**
    * @param {number|string} input
    * @returns {string|number}

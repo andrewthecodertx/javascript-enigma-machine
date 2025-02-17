@@ -1,8 +1,8 @@
-import { utils } from './utils.js';
+import utils from './utils.js';
 
 // historical UKW-B reflector
 // this was the most common reflector used in the enigma machines
-export class Reflector {
+export default class Reflector {
   /**
    * @returns {Reflector}
    */

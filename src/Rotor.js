@@ -1,31 +1,17 @@
-import { utils } from './utils.js';
+import utils from './utils.js';
 
-export class Rotor {
+export default class Rotor {
   /**
    * @param {string[]} rotor
+   * @param {string} ring
+   * @param {string} position
    * @returns {Rotor}
    */
-  constructor(rotor) {
+  constructor(rotor, ring, position) {
     this.wiring = rotor[0];
     this.notch = utils.convert(rotor[1]);
-    this.position = 0;
-    this.ringSetting = 0;
-  }
-
-  /**
-   * @param {string} position
-   * @returns {void}
-   */
-  setPosition(position) {
+    this.ring = utils.convert(ring) % 26;
     this.position = utils.convert(position) % 26;
-  }
-
-  /**
-   * @param {string} ringsetting
-   * @returns {void}
-   */
-  setRingSetting(ringsetting) {
-    this.ringSetting = utils.convert(ringsetting) % 26;
   }
 
   /**
@@ -43,14 +29,14 @@ export class Rotor {
   }
 
   /**
-  * @param {string} char
-  * @param {boolean} isReverse
-  * @returns {string}
-  */
+   * @param {string} char
+   * @param {boolean} isReverse
+   * @returns {string}
+   */
   process(char, isReverse = false) {
     let p = utils.convert(char);
     let pos = this.position;
-    let ring = this.ringSetting;
+    let ring = this.ring;
     let w = this.wiring;
 
     let entrypoint = !isReverse ? utils.convert(w[(p + pos - ring + 26) % 26]) :

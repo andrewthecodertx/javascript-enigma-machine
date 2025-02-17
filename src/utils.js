@@ -1,9 +1,14 @@
 export class utils {
+  /**
+   * @param {number|string} input
+   * @returns {string|number}
+   */
   static convert(input) {
     if (typeof input === 'number') {
       if (input < 0 || input > 25) {
         throw new Error("Position must be between 0 and 25");
       }
+
       return String.fromCharCode(65 + input);
     }
 

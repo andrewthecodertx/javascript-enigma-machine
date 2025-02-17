@@ -45,21 +45,19 @@ chars.forEach(char => {
     }
     right.step();
 
-    let tmp = '';
-
     // signal path from the keyboard
-    tmp = plug.process(char);
-    tmp = right.process(tmp);
-    tmp = middle.process(tmp);
-    tmp = left.process(tmp);
-    tmp = reflector.process(tmp);
-    tmp = left.process(tmp, true);
-    tmp = middle.process(tmp, true);
-    tmp = right.process(tmp, true);
-    tmp = plug.process(tmp);
+    char = plug.process(char);
+    char = right.process(char);
+    char = middle.process(char);
+    char = left.process(char);
+    char = reflector.process(char);
+    char = left.process(char, true);
+    char = middle.process(char, true);
+    char = right.process(char, true);
+    char = plug.process(char);
 
     // instead of lighting the bulb, we collect the output here...
-    output += tmp;
+    output += char;
   }
 });
 

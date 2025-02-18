@@ -11,12 +11,13 @@ export default class Reflector {
   }
 
   /**
-   * @param {string} char
+   * @param {string} input
    * @returns {number}
    */
-  process(char) {
-    const position = utils.convert(char)
+  process(input) {
+    let position = utils.convert(input)
+    let output = this.wiring[position];
 
-    return this.wiring[position];
+    return output;
   }
 }

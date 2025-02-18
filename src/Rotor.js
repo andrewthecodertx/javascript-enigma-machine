@@ -29,18 +29,26 @@ export default class Rotor {
   }
 
   /**
-   * @param {string} char
+   * @param {string} input
    * @param {boolean} isReverse
    * @returns {string}
    */
-  process(char, isReverse = false) {
-    let p = utils.convert(char);
-    let pos = this.position;
-    let ring = this.ring;
-    let w = this.wiring;
+  process(input, isReverse = false) {
+    let i = utils.convert(input); // input - converted to position
+    let p = this.position; // position of the rotor
+    let r = this.ring; // ring setting of the rotor
+    let w = this.wiring; // rotor wiring
 
-    let entrypoint = !isReverse ? utils.convert(w[(p + pos - ring + 26) % 26]) :
-      w.indexOf(utils.convert((p + pos - ring + 26) % 26));
-    return utils.convert((entrypoint - pos + ring + 26) % 26);
+    // adjust inmput based on ring setting
+    let forwardEncrypt = utils.convert(w[(i + p - r + 26) % 26]);
+
+    // find the position of the input in the wiring
+    let reverseEncrypt = w.indexOf(utils.convert((i + p - r + 26) % 26));
+
+    let entrypoint = !isReverse ? forwardEncrypt : reverseEncrypt;
+
+    let output = utils.convert((entrypoint - p + r + 26) % 26);
+
+    return output;
   }
 }

@@ -10,9 +10,14 @@ let IV = ['ESOVPZJAYQUIRHXLNFTGKDCMWB', 'J']
 let V = ['VZBRGITYUPSDNHLXAWMJQOFECK', 'Z']
 
 let plug = new PlugBoard(['AZ', 'BY', 'CX', 'TD', 'SW']);
+
+// choose 3 rotors (from above) and then select the ring setting and 
+// initial position for each rotor
 let left = new Rotor(IV, 'A', 'J');
 let middle = new Rotor(III, 'A', 'V');
 let right = new Rotor(V, 'A', 'Z');
+
+// there is only one reflector at the moment - the UKW-B
 let reflector = new Reflector();
 
 let input = 'this is a test';

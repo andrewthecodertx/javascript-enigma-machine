@@ -16,8 +16,13 @@ export default class PlugBoard {
       }
 
       const [a, b] = pair.split('');
+
       if (!this.isValidLetter(a) || !this.isValidLetter(b)) {
         throw new Error('Plugs must contain only letters A-Z.');
+      }
+
+      if (a === b) {
+        throw new Error('Plugs cannot be connected to themselves.');
       }
 
       this.plugConnections[a.toUpperCase()] = b.toUpperCase();
@@ -39,10 +44,6 @@ export default class PlugBoard {
    */
   process(input) {
     input = input.toUpperCase();
-
-    if (!this.isValidLetter(input)) {
-      throw new Error('Input must be a single letter A-Z.');
-    }
 
     let output = this.plugConnections[input] || input;
 

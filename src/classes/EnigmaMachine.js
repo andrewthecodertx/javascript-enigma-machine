@@ -1,74 +1,73 @@
-import PlugBoard from './PlugBoard.js';
-import Rotor from './Rotor.js';
+import utils from '../utils.js';
 
 export class EnigmaMachine {
-  constructor(rotors, plugboard, reflector) {
-    this.rotors = rotors;
-    this.plugboard = plugboard;
-    this.reflector = reflector;
+  constructor(settings) {
+    this.plugboard = settings.plugboard;
+    this.leftRotor = settings.leftRotor;
+    this.middleRotor = settings.middleRotor;
+    this.rightRotor = settings.rightRotor;
+    this.reflector = settings.reflector;
   }
 
-  // Method to encrypt a single character
-  encrypt(char) {
-    // 1. Plugboard connections
-    let processedChar = this.plugboard.process(char);
+  processMessage(message) {
+    let output = '';
+    const chars = message.split('');
 
-    // 2. Rotors (right to left)
-    processedChar = this.rotors[2].process(processedChar);
-    processedChar = this.rotors[1].process(processedChar);
-    processedChar = this.rotors[0].process(processedChar);
-
-    // 3. Reflector
-    processedChar = this.reflector.process(processedChar);
-
-    // 4. Rotors (left to right, reverse)
-    processedChar = this.rotors[0].process(processedChar, true);
-    processedChar = this.rotors[1].process(processedChar, true);
-    processedChar = this.rotors[2].process(processedChar, true);
-
-    // 5. Plugboard again
-    processedChar = this.plugboard.process(processedChar);
-
-    return processedChar;
+    for (const char of chars) {
+      if (/[a-zA-Z]/.test(char)) {
+        this.advanceRotors();
+        output += this.processChar(char);
+      }
+    }
+    return output;
   }
 
-  // Method to advance the rotors
+  processChar(char) {
+    let charCode = utils.convert(char);
+    charCode = this.plugboard.process(charCode);
+    charCode = this.rightRotor.process(charCode);
+    charCode = this.middleRotor.process(charCode);
+    charCode = this.leftRotor.process(charCode);
+    charCode = this.reflector.process(charCode);
+    charCode = this.leftRotor.process(charCode, true);
+    charCode = this.middleRotor.process(charCode, true);
+    charCode = this.rightRotor.process(charCode, true);
+    charCode = this.plugboard.process(charCode);
+    return utils.convert(charCode);
+  }
+
   advanceRotors() {
-    // Always step the rightmost rotor
-    this.rotors[2].step();
-
-    // Check for notch and double-stepping
-    if (this.rotors[2].isAtNotch()) {
-      this.rotors[1].step();
+    // Middle rotor steps if right rotor is at notch
+    if (this.rightRotor.isAtNotch()) {
+      this.middleRotor.step();
+      // Left rotor steps if middle rotor is at notch (double-stepping)
+      if (this.middleRotor.isAtNotch()) {
+        this.leftRotor.step();
+      }
     }
-    if (this.rotors[1].isAtNotch()) {
-      this.rotors[0].step();
-    }
+    this.rightRotor.step();
   }
 
-  // Method to get the current configuration
-  getConfig() {
+  getSettings() {
     return {
-      rotors: this.rotors.map(rotor => ({
-        wiring: rotor.wiring,
-        notch: rotor.notch,
-        ring: rotor.ring,
-        position: rotor.position,
-      })),
       plugboard: this.plugboard.connections,
+      rotors: [
+        {
+          name: this.leftRotor.name,
+          ring: this.leftRotor.ring,
+          position: this.leftRotor.position,
+        },
+        {
+          name: this.middleRotor.name,
+          ring: this.middleRotor.ring,
+          position: this.middleRotor.position,
+        },
+        {
+          name: this.rightRotor.name,
+          ring: this.rightRotor.ring,
+          position: this.rightRotor.position,
+        },
+      ],
     };
-  }
-
-  // Method to set the configuration from a JSON object
-  setConfig(config) {
-    this.rotors = config.rotors.map(
-      rotorConfig =>
-        new Rotor(
-          [rotorConfig.wiring, String.fromCharCode(65 + rotorConfig.notch)],
-          String.fromCharCode(65 + rotorConfig.ring),
-          String.fromCharCode(65 + rotorConfig.position)
-        )
-    );
-    this.plugboard = new PlugBoard(config.plugboard);
   }
 }

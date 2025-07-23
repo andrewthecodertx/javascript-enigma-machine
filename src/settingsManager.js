@@ -1,7 +1,7 @@
 import { writeFile } from 'fs/promises';
 import utils from './utils.js';
 
-export async function saveSettings(plugboard, leftRotor, middleRotor, rightRotor, reflector) {
+export async function saveSettings(plugboard, leftRotor, middleRotor, rightRotor, reflector, fileName = 'enigma_settings.json') {
   const settings = {
     plugboard: plugboard.connections,
     rotors: [
@@ -12,7 +12,6 @@ export async function saveSettings(plugboard, leftRotor, middleRotor, rightRotor
     reflector: reflector.wiring, // Assuming only one reflector type for now
   };
 
-  const fileName = 'enigma_settings.json';
   try {
     await writeFile(fileName, JSON.stringify(settings, null, 2));
     console.log(`Settings saved to ${fileName}`);

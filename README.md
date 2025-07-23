@@ -25,10 +25,10 @@ npm install
 Run the emulator using Node.js:
 
 ```bash
-node enigma.js
+node cli.js
 ```
 
-This will process the input text defined in `enigma.js` and output the encrypted
+This will process the input text defined in `cli.js` and output the encrypted
 result.
 
 ## Usage

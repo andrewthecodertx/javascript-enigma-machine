@@ -33,22 +33,16 @@ result.
 
 ## Usage
 
-```javascript
-import PlugBoard from './src/PlugBoard.js';
-import Rotor from './src/Rotor.js';
-import Reflector from './src/Reflector.js';
+The emulator is controlled via a command-line interface. The following commands
+are available:
 
-// Configure the machine
-let plug = new PlugBoard(['AZ', 'BY', 'CX', 'TD', 'SW']);
-let left = new Rotor(IV, 'A', 'J');
-let middle = new Rotor(III, 'A', 'V');
-let right = new Rotor(V, 'A', 'Z');
-let reflector = new Reflector();
-
-// Encrypt a message
-let input = 'this is a test';
-// ... see enigma.js for full encryption process
-```
+- `process <message>`: Encrypts the given message.
+- `settings`: Displays the current machine settings (rotors, plugboard, etc.).
+- `load [filename]`: Loads machine settings from a JSON file. Defaults to
+`enigma_settings.json`.
+- `save [filename]`: Saves the current machine settings to a JSON file. Defaults
+to `enigma_settings.json`.
+- `exit`: Exits the application.
 
 ## Components
 

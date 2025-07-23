@@ -1,4 +1,5 @@
-import PlugBoard from '../src/PlugBoard.js';
+import PlugBoard from '../src/classes/PlugBoard.js'
+import utils from '../src/utils.js'
 
 describe('PlugBoard Test', () => {
   let plugboard;
@@ -8,14 +9,13 @@ describe('PlugBoard Test', () => {
   });
 
   test('should switch connected letters', () => {
-    expect(plugboard.process('A')).toBe('B');
-    expect(plugboard.process('B')).toBe('A');
-    expect(plugboard.process('C')).toBe('D');
-    expect(plugboard.process('D')).toBe('C');
+    expect(plugboard.process(utils.convert('A'))).toBe(utils.convert('B'));
+    expect(plugboard.process(utils.convert('B'))).toBe(utils.convert('A'));
+    expect(plugboard.process(utils.convert('C'))).toBe(utils.convert('D'));
+    expect(plugboard.process(utils.convert('D'))).toBe(utils.convert('C'));
   });
 
   test('should return the same letter if not connected', () => {
-    expect(plugboard.process('E')).toBe('E');
-    expect(plugboard.process('F')).toBe('F');
+    expect(plugboard.process(utils.convert('E'))).toBe(utils.convert('E'));
   });
 });

@@ -1,0 +1,27 @@
+{
+  "plugboard": [
+    "AZ",
+    "BY",
+    "CX",
+    "TD",
+    "SW"
+  ],
+  "rotors": [
+    {
+      "name": "IV",
+      "ring": "A",
+      "position": "K"
+    },
+    {
+      "name": "III",
+      "ring": "A",
+      "position": "W"
+    },
+    {
+      "name": "V",
+      "ring": "A",
+      "position": "K"
+    }
+  ],
+  "reflector": "YRUHQSLDPXNGOKMIEBFZCWVJAT"
+}

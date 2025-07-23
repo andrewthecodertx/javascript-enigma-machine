@@ -1,17 +1,23 @@
-import utils from './utils.js';
+import utils from '../utils.js';
+import { rotorData } from '../dataLoader.js';
 
 export default class Rotor {
   /**
-   * @param {string[]} rotor
+   * @param {string} name
    * @param {string} ring
    * @param {string} position
    * @returns {Rotor}
    */
-  constructor(rotor, ring, position) {
-    this.wiring = rotor[0];
-    this.notch = utils.convert(rotor[1]);
-    this.ring = utils.convert(ring) % 26;
-    this.position = utils.convert(position) % 26;
+  constructor(name, ring, position) {
+    const rotorConfig = rotorData.find(r => r.name === name);
+    if (!rotorConfig) {
+      throw new Error(`Rotor with name ${name} not found.`);
+    }
+    this.name = name;
+    this.wiring = rotorConfig.wiring;
+    this.notch = utils.convert(rotorConfig.notch);
+    this.ring = typeof ring === 'number' ? ring % 26 : utils.convert(ring) % 26;
+    this.position = typeof position === 'number' ? position % 26 : utils.convert(position) % 26;
   }
 
   /**
@@ -34,7 +40,7 @@ export default class Rotor {
    * @returns {string}
    */
   process(input, isReverse = false) {
-    let i = utils.convert(input); // input - converted to position
+    let i = input; // input - converted to position
     let p = this.position; // position of the rotor
     let r = this.ring; // ring setting of the rotor
     let w = this.wiring; // rotor wiring
@@ -47,7 +53,7 @@ export default class Rotor {
 
     let entrypoint = !isReverse ? forwardEncrypt : reverseEncrypt;
 
-    let output = utils.convert((entrypoint - p + r + 26) % 26);
+    let output = (entrypoint - p + r + 26) % 26;
 
     return output;
   }

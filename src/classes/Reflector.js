@@ -1,4 +1,4 @@
-import utils from './utils.js';
+import utils from '../utils.js';
 
 // historical UKW-B reflector
 // this was the most common reflector used in the enigma machines
@@ -15,9 +15,8 @@ export default class Reflector {
    * @returns {number}
    */
   process(input) {
-    let position = utils.convert(input)
-    let output = this.wiring[position];
-
-    return output;
+    let position = input
+    let outputChar = this.wiring[position];
+    return utils.convert(outputChar);
   }
 }

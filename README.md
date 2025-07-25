@@ -68,6 +68,62 @@ mathematical equations behind its operation, please refer to the
 - Implements the UKW-B reflector with historical wiring
 - Reflects the signal back through the rotor system
 
+## API Usage
+
+The project also includes a simple API server using Express.js that allows you to interact with the Enigma machine programmatically.
+
+### Running the API Server
+
+To start the API server, run:
+
+```bash
+node server.js
+```
+
+The API will be listening on `http://localhost:4000`.
+
+### Endpoints
+
+#### `POST /process`
+
+Processes a message using the Enigma machine with the provided settings.
+
+- **Method:** `POST`
+- **URL:** `/process`
+- **Content-Type:** `application/json`
+- **Request Body:**
+
+```json
+{
+  "settings": {
+    "plugboard": ["AZ", "BY"],
+    "rotors": [
+      { "name": "I", "ring": 0, "position": 0 },
+      { "name": "II", "ring": 0, "position": 0 },
+      { "name": "III", "ring": 0, "position": 0 }
+    ],
+    "reflector": "UKW-B"
+  },
+  "message": "HELLOWORLD"
+}
+```
+
+- **Response:**
+
+```json
+{
+  "result": "ENCRYPTEDMESSAGE"
+}
+```
+
+- **Example (using curl):**
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+-d '{"settings":{"plugboard":["AZ","BY"],"rotors":[{"name":"I","ring":0,"position":0},{"name":"II","ring":0,"position":0},{"name":"III","ring":0,"position":0}],"reflector":"UKW-B"},"message":"HELLOWORLD"}' \
+http://localhost:4000/process
+```
+
 ## Testing
 
 The project includes comprehensive tests using Jest. Run the tests with:
@@ -75,6 +131,7 @@ The project includes comprehensive tests using Jest. Run the tests with:
 ```bash
 npm test
 ```
+
 
 ## Historical Note
 

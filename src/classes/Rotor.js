@@ -45,15 +45,27 @@ export default class Rotor {
     let r = this.ring; // ring setting of the rotor
     let w = this.wiring; // rotor wiring
 
-    // adjust inmput based on ring setting
-    let forwardEncrypt = utils.convert(w[(i + p - r + 26) % 26]);
+    let output;
 
-    // find the position of the input in the wiring
-    let reverseEncrypt = w.indexOf(utils.convert((i + p - r + 26) % 26));
-
-    let entrypoint = !isReverse ? forwardEncrypt : reverseEncrypt;
-
-    let output = (entrypoint - p + r + 26) % 26;
+    if (!isReverse) {
+      // Forward pass (Right to Left)
+      // 1. Adjust input for rotor position and ring setting
+      let adjustedInput = (i + p - r + 26) % 26;
+      // 2. Map through the wiring
+      let charThroughWiring = w[adjustedInput];
+      let numThroughWiring = utils.convert(charThroughWiring);
+      // 3. Adjust back for rotor position and ring setting
+      output = (numThroughWiring - p + r + 26) % 26;
+    } else {
+      // Reverse pass (Left to Right)
+      // 1. Adjust input for rotor position and ring setting
+      let adjustedInput = (i + p - r + 26) % 26;
+      // 2. Find the index in the wiring that maps to the character at adjustedInput's position in the standard alphabet.
+      let charToFindInWiring = utils.convert(adjustedInput);
+      let indexInWiring = w.indexOf(charToFindInWiring);
+      // 3. Adjust back for rotor position and ring setting
+      output = (indexInWiring - p + r + 26) % 26;
+    }
 
     return output;
   }

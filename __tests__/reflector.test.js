@@ -1,4 +1,5 @@
 import Reflector from '../src/classes/Reflector.js';
+import utils from '../src/utils.js';
 
 describe('Reflector Test', () => {
   let reflector;
@@ -11,15 +12,10 @@ describe('Reflector Test', () => {
     expect(reflector.wiring).toBe('YRUHQSLDPXNGOKMIEBFZCWVJAT');
   });
 
-  test('should correctly reflect input characters', () => {
-    // Test a few known reflections based on the UKW-B wiring
-    // A (0) -> Y (24)
-    expect(reflector.process(0)).toBe(24);
-    // B (1) -> R (17)
-    expect(reflector.process(1)).toBe(17);
-    // Z (25) -> T (19)
-    expect(reflector.process(25)).toBe(19);
-    // M (12) -> O (14)
-    expect(reflector.process(12)).toBe(14);
+  test('should correctly reflect all input characters', () => {
+    for (let i = 0; i < 26; i++) {
+      const expectedOutput = utils.convert(reflector.wiring[i]);
+      expect(reflector.process(i)).toBe(expectedOutput);
+    }
   });
 });

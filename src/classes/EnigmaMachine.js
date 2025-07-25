@@ -2,6 +2,9 @@ import utils from '../utils.js';
 
 export class EnigmaMachine {
   constructor(settings) {
+    if (!settings || !settings.plugboard || !settings.leftRotor || !settings.middleRotor || !settings.rightRotor || !settings.reflector) {
+      throw new Error('Missing one or more required Enigma machine components (plugboard, rotors, reflector).');
+    }
     this.plugboard = settings.plugboard;
     this.leftRotor = settings.leftRotor;
     this.middleRotor = settings.middleRotor;

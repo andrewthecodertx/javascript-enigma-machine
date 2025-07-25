@@ -1,7 +1,18 @@
 import { writeFile } from 'fs/promises';
 import utils from './utils.js';
 
+import path from 'path';
+
 export async function saveSettings(plugboard, leftRotor, middleRotor, rightRotor, reflector, fileName = 'enigma_settings.json') {
+  // Ensure the filename has a .json extension
+  if (!fileName.endsWith('.json')) {
+    fileName += '.json';
+  }
+
+  // Ensure the file is saved in the user_settings directory
+  if (!fileName.startsWith('user_settings/')) {
+    fileName = path.join('user_settings', fileName);
+  }
   const settings = {
     plugboard: plugboard.connections,
     rotors: [

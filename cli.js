@@ -4,10 +4,11 @@ import { EnigmaMachine } from './src/classes/EnigmaMachine.js';
 import PlugBoard from './src/classes/PlugBoard.js';
 import Rotor from './src/classes/Rotor.js';
 import Reflector from './src/classes/Reflector.js';
-import { machineSettings } from './src/dataLoader.js';
+// import { machineSettings } from './src/dataLoader.js';
 import { saveSettings } from './src/settingsManager.js';
 
-const DEFAULT_SETTINGS_FILE = 'enigma_settings.json';
+const DEFAULT_SAVE_FILE = 'user_settings/enigma_settings.json';
+const DEFAULT_LOAD_FILE = './data/machineSettings.json';
 
 let enigmaMachine;
 
@@ -45,7 +46,7 @@ async function loadSettingsFromFile(filename) {
 }
 
 async function handleSaveCommand(args) {
-  const filename = args[0] || DEFAULT_SETTINGS_FILE;
+  const filename = args[0] || DEFAULT_SAVE_FILE;
   if (!enigmaMachine) {
     console.log("Enigma machine not fully initialized. Cannot save settings.");
     return;
@@ -71,8 +72,7 @@ function handleProcessCommand(args) {
     return;
   }
 
-  // Re-initialize the Enigma machine to its initial state before processing
-  initEnigma(machineSettings);
+  
 
   const output = enigmaMachine.processMessage(inputMessage);
   console.log(`Output: ${output}`);
@@ -99,7 +99,19 @@ const rl = readline.createInterface({
 });
 
 async function startCli() {
-  await initEnigma(machineSettings);
+  let initialSettingsFile = DEFAULT_LOAD_FILE;
+
+  await new Promise(resolve => {
+    rl.question(`Enter path to settings file (default: ${DEFAULT_LOAD_FILE}): `, async (answer) => {
+      if (answer.trim() !== '') {
+        initialSettingsFile = answer.trim();
+      }
+      resolve();
+    });
+  });
+
+  await loadSettingsFromFile(initialSettingsFile);
+
   console.log('Welcome to the Enigma CLI!');
   console.log('Commands: load [filename], save [filename], process <message>, settings, exit');
   rl.prompt();
@@ -109,7 +121,7 @@ async function startCli() {
 
     switch (command.toLowerCase()) {
       case 'load':
-        await loadSettingsFromFile(args[0] || DEFAULT_SETTINGS_FILE);
+        await loadSettingsFromFile(args[0] || DEFAULT_LOAD_FILE);
         break;
       case 'save':
         await handleSaveCommand(args);

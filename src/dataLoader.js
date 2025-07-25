@@ -1,8 +1,9 @@
 import { readFile } from 'fs/promises';
+import path from 'path';
 
 const loadRotorData = async () => {
   try {
-    const data = await readFile(new URL('../data/rotors.json', import.meta.url));
+    const data = await readFile(path.join(process.cwd(), 'data/rotors.json'));
     return JSON.parse(data);
   } catch (error) {
     console.error('Failed to load rotor data:', error);
@@ -12,7 +13,7 @@ const loadRotorData = async () => {
 
 const loadMachineSettings = async () => {
   try {
-    const data = await readFile(new URL('../data/machineSettings.json', import.meta.url));
+    const data = await readFile(path.join(process.cwd(), 'data/machineSettings.json'));
     return JSON.parse(data);
   } catch (error) {
     console.error('Failed to load machine settings:', error);

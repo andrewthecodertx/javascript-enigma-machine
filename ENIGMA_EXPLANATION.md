@@ -204,7 +204,7 @@ $$C_{out} = (W.indexOf(\text{utils.convert}((C_{in} + P - R + 26) \% 26)) - P + 
 * **`utils.convert(...)`**: This converts the numerical effective index
     to its corresponding character.
 * **`W.indexOf(...)`**: This finds the *index* of the character (obtained
-    from the previous step) within the rotor's $W$iring. This effectively
+    from the previous step) within the rotor's wiring. This effectively
     performs the inverse mapping of the rotor's wiring.
 * **$(... - P + R + 26) \% 26$**: This final adjustment accounts for the
     rotor's position and ring setting to yield the final output

@@ -15,8 +15,7 @@ export default class Reflector {
    * @returns {number}
    */
   process(input) {
-    let position = input
-    let outputChar = this.wiring[position];
+    let outputChar = this.wiring[input];
     return utils.convert(outputChar);
   }
 }

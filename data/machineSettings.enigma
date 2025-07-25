@@ -1,0 +1,26 @@
+{
+  "rotors": [
+    {
+      "name": "IV",
+      "ring": 0,
+      "position": 9
+    },
+    {
+      "name": "III",
+      "ring": 0,
+      "position": 21
+    },
+    {
+      "name": "V",
+      "ring": 0,
+      "position": 25
+    }
+  ],
+  "plugboard": [
+    "AZ",
+    "BY",
+    "CX",
+    "TD",
+    "SW"
+  ]
+}

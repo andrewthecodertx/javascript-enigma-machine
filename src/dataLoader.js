@@ -13,7 +13,7 @@ const loadRotorData = async () => {
 
 const loadMachineSettings = async () => {
   try {
-    const data = await readFile(path.join(process.cwd(), 'data/machineSettings.json'));
+    const data = await readFile(path.join(process.cwd(), 'data/machineSettings.enigma'));
     return JSON.parse(data);
   } catch (error) {
     console.error('Failed to load machine settings:', error);

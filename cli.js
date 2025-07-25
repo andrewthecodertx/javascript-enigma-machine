@@ -7,8 +7,8 @@ import Reflector from './src/classes/Reflector.js';
 // import { machineSettings } from './src/dataLoader.js';
 import { saveSettings } from './src/settingsManager.js';
 
-const DEFAULT_SAVE_FILE = 'user_settings/enigma_settings.json';
-const DEFAULT_LOAD_FILE = './data/machineSettings.json';
+const DEFAULT_SAVE_FILE = 'user_settings/enigma_settings.enigma';
+const DEFAULT_LOAD_FILE = './data/machineSettings.enigma';
 
 let enigmaMachine;
 

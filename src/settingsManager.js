@@ -3,10 +3,10 @@ import utils from './utils.js';
 
 import path from 'path';
 
-export async function saveSettings(plugboard, leftRotor, middleRotor, rightRotor, reflector, fileName = 'enigma_settings.json') {
-  // Ensure the filename has a .json extension
-  if (!fileName.endsWith('.json')) {
-    fileName += '.json';
+export async function saveSettings(plugboard, leftRotor, middleRotor, rightRotor, reflector, fileName = 'enigma_settings.enigma') {
+  // Ensure the filename has a .enigma extension
+  if (!fileName.endsWith('.enigma')) {
+    fileName += '.enigma';
   }
 
   // Ensure the file is saved in the user_settings directory

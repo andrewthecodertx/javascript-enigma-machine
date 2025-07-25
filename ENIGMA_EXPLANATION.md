@@ -133,28 +133,28 @@ machine in a specific path:
 
 1. **Input to Plugboard:** The initial character enters the `plugboard`.
     If it's part of a connected pair, it's swapped.
-2. **Plugboard to Right Rotor:** The signal then enters the `rightRotor`.
+1. **Plugboard to Right Rotor:** The signal then enters the `rightRotor`.
     The rotor's current position and ring setting, along with its internal
     wiring, determine the output.
-3. **Right Rotor to Middle Rotor:** The signal passes from the
+1. **Right Rotor to Middle Rotor:** The signal passes from the
     `rightRotor` to the `middleRotor`, undergoing another substitution.
-4. **Middle Rotor to Left Rotor:** The signal continues to the
+1. **Middle Rotor to Left Rotor:** The signal continues to the
     `leftRotor` for a third substitution.
-5. **Left Rotor to Reflector:** The signal reaches the `reflector`. The
+1. **Left Rotor to Reflector:** The signal reaches the `reflector`. The
     reflector's fixed wiring sends the signal back, ensuring a reciprocal
     encryption.
-6. **Reflector back to Left Rotor (Reverse Pass):** The signal, now
+1. **Reflector back to Left Rotor (Reverse Pass):** The signal, now
     reflected, travels back through the `leftRotor` in reverse. The
     rotor's wiring is traversed in the opposite direction.
-7. **Left Rotor to Middle Rotor (Reverse Pass):** The signal moves from
+1. **Left Rotor to Middle Rotor (Reverse Pass):** The signal moves from
     the `leftRotor` to the `middleRotor` in reverse.
-8. **Middle Rotor to Right Rotor (Reverse Pass):** The signal proceeds
+1. **Middle Rotor to Right Rotor (Reverse Pass):** The signal proceeds
     from the `middleRotor` to the `rightRotor` in reverse.
-9. **Right Rotor to Plugboard (Reverse Pass):** The signal exits the
+1. **Right Rotor to Plugboard (Reverse Pass):** The signal exits the
     `rightRotor` and re-enters the `plugboard`. If it's part of a
     connected pair, it's swapped back (or swapped again if it was not
     swapped on the way in).
-10. **Plugboard to Output:** The final signal from the plugboard is the
+1. **Plugboard to Output:** The final signal from the plugboard is the
     encrypted character.
 
 #### Rotor Internal Processing
@@ -166,10 +166,10 @@ to convert between letter characters (A-Z) and their numerical values
 
 Let:
 
-* `C_in`: Input character's numerical value (0-25).
-* `P`: Rotor's current position (0-25).
-* `R`: Rotor's ring setting (0-25).
-* `W`: Rotor's wiring (a string representing the permutation, e.g.,
+* $C_{in}$: Input character's numerical value (0-25).
+* $P$: Rotor's current position (0-25).
+* $R$: Rotor's ring setting (0-25).
+* $W$: Rotor's wiring (a string representing the permutation, e.g.,
     "EKMFLGDQVZNTOWYHXUSPAIBRCJ").
 * `utils.convert(value)`: Function to convert between numerical value
     (0-25) and letter character (A-Z).
@@ -178,18 +178,18 @@ Let:
 This occurs when the signal first enters the rotor assembly from the
 keyboard side.
 
-`C_out = (utils.convert(W[(C_in + P - R + 26) % 26]) - P + R + 26) % 26`
+$$C_{out} = (\text{utils.convert}(W[(C_{in} + P - R + 26) \% 26]) - P + R + 26) \% 26$$
 
-* **`(C_in + P - R + 26) % 26`**: This calculates the effective index
+* **$(C_{in} + P - R + 26) \% 26$**: This calculates the effective index
     on the rotor's internal wiring by adjusting the input character's
-    numerical value (`C_in`) based on the rotor's current `P`osition and
-    `R`ing setting. The `+ 26) % 26` ensures the result stays within the
+    numerical value ($C_{in}$) based on the rotor's current $P$osition and
+    $R$ing setting. The `+ 26) % 26` ensures the result stays within the
     0-25 range.
-* **`W[...]`**: This uses the calculated effective index to look up the
-    corresponding character in the rotor's `W`iring.
+* **$W[...]$**: This uses the calculated effective index to look up the
+    corresponding character in the rotor's $W$iring.
 * **`utils.convert(...)`**: This converts the character obtained from the
     wiring back to its numerical value.
-* **`(... - P + R + 26) % 26`**: This final adjustment accounts for the
+* **$(... - P + R + 26) \% 26$**: This final adjustment accounts for the
     rotor's position and ring setting to determine the output character's
     numerical value from this rotor.
 
@@ -197,16 +197,16 @@ keyboard side.
 This occurs when the signal returns from the reflector and passes back
 through the rotor assembly.
 
-`C_out = (W.indexOf(utils.convert((C_in + P - R + 26) % 26)) - P + R + 26) % 26`
+$$C_{out} = (W.indexOf(\text{utils.convert}((C_{in} + P - R + 26) \% 26)) - P + R + 26) \% 26$$
 
-* **`(C_in + P - R + 26) % 26`**: Similar to the forward pass, this
+* **$(C_{in} + P - R + 26) \% 26$**: Similar to the forward pass, this
     calculates the effective index on the rotor's internal wiring.
 * **`utils.convert(...)`**: This converts the numerical effective index
     to its corresponding character.
 * **`W.indexOf(...)`**: This finds the *index* of the character (obtained
-    from the previous step) within the rotor's `W`iring. This effectively
+    from the previous step) within the rotor's $W$iring. This effectively
     performs the inverse mapping of the rotor's wiring.
-* **`(... - P + R + 26) % 26`**: This final adjustment accounts for the
+* **$(... - P + R + 26) \% 26$**: This final adjustment accounts for the
     rotor's position and ring setting to yield the final output
     character's numerical value for this reverse pass.
 
@@ -219,8 +219,8 @@ The rotors advance according to a specific mechanism:
 * If the `rightRotor` is at its "notch" position *before* it steps,
     the `middleRotor` will also step.
 * If the `middleRotor` is at its "notch" position *before* it steps
-    (due to the right rotor's notch or its own previous step), the
-    `leftRotor` will also step. This is the "double-stepping" mechanism,
+    (due to the right rotor's notch or its own previous step),
+    the `leftRotor` will also step. This is the "double-stepping" mechanism,
     where the middle rotor can cause both itself and the left rotor to
     advance.
 

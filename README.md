@@ -46,6 +46,10 @@ to `enigma_settings.json`.
 
 ## Components
 
+For a detailed explanation of how the Enigma machine works and the
+mathematical equations behind its operation, please refer to the
+[Enigma Explanation Document](ENIGMA_EXPLANATION.md).
+
 ### PlugBoard
 
 - Implements the plugboard (Steckerbrett) that allows letter pairs to be swapped

@@ -38,11 +38,11 @@ are available:
 
 - `process <message>`: Encrypts the given message.
 - `settings`: Displays the current machine settings (rotors, plugboard, etc.).
-- `load [filename]`: Loads machine settings from a JSON file. Defaults to
-`enigma_settings.json`.
-- `save [filename]`: Saves the current machine settings to a JSON file. Defaults
-to `enigma_settings.json`.
-- `exit`: Exits the application.
+- `load [filename]`: Loads machine settings from a file. Defaults to
+`./data/machineSettings.enigma`.
+- `save [filename]`: Saves the current machine settings to a file. Defaults
+to `user_settings/enigma_settings.enigma`.
+- `exit`, `quit`, `bye`: Exits the application.
 
 ## Components
 

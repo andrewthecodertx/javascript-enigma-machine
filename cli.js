@@ -74,11 +74,6 @@ function handleProcessCommand(args) {
     return;
   }
 
-  
-
-  // Re-initialize the Enigma machine to its initial state before processing
-  await initEnigma(initialMachineSettings);
-
   const output = enigmaMachine.processMessage(inputMessage);
   console.log(`Output: ${output}`);
 }

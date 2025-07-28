@@ -11,7 +11,6 @@ const DEFAULT_SAVE_FILE = './user_settings/enigma_settings.enigma';
 const DEFAULT_LOAD_FILE = './data/machineSettings.enigma';
 
 let enigmaMachine;
-let initialMachineSettings; // Store initial settings
 
 async function initEnigma(settings) {
   try {
@@ -39,8 +38,6 @@ async function loadSettingsFromFile(filename) {
   try {
     const data = await readFile(filename, 'utf8');
     const settings = JSON.parse(data);
-
-    initialMachineSettings = settings; // Store the loaded settings
 
     await initEnigma(settings);
 
@@ -76,7 +73,8 @@ async function handleProcessCommand(args) {
     console.log("Enigma machine not fully initialized. Cannot process message.");
     return;
   }
-  await initEnigma(initialMachineSettings);
+  const currentSettings = enigmaMachine.getSettings();
+  await initEnigma(currentSettings);
 
   const output = enigmaMachine.processMessage(inputMessage);
   console.log(`Output: ${output}`);

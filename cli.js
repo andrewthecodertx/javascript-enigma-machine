@@ -73,9 +73,7 @@ async function handleProcessCommand(args) {
     console.log("Enigma machine not fully initialized. Cannot process message.");
     return;
   }
-  const currentSettings = enigmaMachine.getSettings();
-  await initEnigma(currentSettings);
-
+  enigmaMachine.reset();
   const output = enigmaMachine.processMessage(inputMessage);
   console.log(`Output: ${output}`);
 }
@@ -129,13 +127,14 @@ async function startCli() {
         await handleSaveCommand(args);
         break;
       case 'process':
-        handleProcessCommand(args);
+        await handleProcessCommand(args);
         break;
       case 'settings':
         handleSettingsCommand();
         break;
       case 'exit':
       case 'quit':
+      case 'q':
       case 'bye':
         rl.close();
         break;

@@ -17,7 +17,12 @@ export default class Rotor {
     this.wiring = rotorConfig.wiring;
     this.notch = utils.convert(rotorConfig.notch);
     this.ring = typeof ring === 'number' ? ring % 26 : utils.convert(ring) % 26;
-    this.position = typeof position === 'number' ? position % 26 : utils.convert(position) % 26;
+    this.initialPosition = typeof position === 'number' ? position % 26 : utils.convert(position) % 26;
+    this.position = this.initialPosition;
+  }
+
+  reset() {
+    this.position = this.initialPosition;
   }
 
   /**

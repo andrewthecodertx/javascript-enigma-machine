@@ -51,6 +51,12 @@ export class EnigmaMachine {
     this.rightRotor.step();
   }
 
+  reset() {
+    this.leftRotor.reset();
+    this.middleRotor.reset();
+    this.rightRotor.reset();
+  }
+
   getSettings() {
     return {
       plugboard: this.plugboard.connections,

@@ -123,7 +123,7 @@ through each character. For each alphabetic character:
 
 1. **Rotor Advancement:** The `advanceRotors` method is called to step
   the rotors.
-2. **Character Processing:** The `processChar` method handles the
+1. **Character Processing:** The `processChar` method handles the
   encryption of a single character.
 
 ### Signal Path for a Single Character (`processChar`)

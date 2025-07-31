@@ -178,8 +178,7 @@ Let:
 This occurs when the signal first enters the rotor assembly from the
 keyboard side.
 
-$$C_{out} = (\text{utils.convert}(W[(C_{in} + P - R + 26) \% 26]) - P + R + 26)
-\% 26$$
+$$C_{out} = (\text{utils.convert}(W[(C_{in} + P - R + 26) \% 26]) - P + R + 26) \% 26$$
 
 * **$(C_{in} + P - R + 26) \% 26$**: This calculates the effective index
   on the rotor's internal wiring by adjusting the input character's
@@ -198,8 +197,7 @@ $$C_{out} = (\text{utils.convert}(W[(C_{in} + P - R + 26) \% 26]) - P + R + 26)
 This occurs when the signal returns from the reflector and passes back
 through the rotor assembly.
 
-$$C_{out} = (W.indexOf(\text{utils.convert}((C_{in} + P - R + 26) \% 26))
-- P + R + 26) \% 26$$
+$$C_{out} = (W.indexOf(\text{utils.convert}((C_{in} + P - R + 26) \% 26)) P + R + 26) \% 26$$
 
 * **$(C_{in} + P - R + 26) \% 26$**: Similar to the forward pass, this
   calculates the effective index on the rotor's internal wiring.
